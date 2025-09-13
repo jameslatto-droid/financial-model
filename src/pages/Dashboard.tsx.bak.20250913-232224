@@ -1,4 +1,4 @@
-﻿// src/pages/Dashboard.tsx
+// src/pages/Dashboard.tsx
 import React, { useMemo, useState } from 'react'
 import KPI from '../components/KPI'
 import { fmt2 } from '../utils/format'
@@ -81,7 +81,7 @@ export default function Dashboard() {
 
   // Part A
   const [aCapexUSD, setACapexUSD] = useState<number>(18_000_000)
-  const [aEquityPct, setAEquityPct] = useState<number>(0)
+  const [aEquityPct, setAEquityPct] = useState<number>(0.30)
   const [aInterest, setAInterest] = useState<number>(0.12)
   const [aTenor, setATenor] = useState<number>(10)
   const [aGrace, setAGrace] = useState<number>(0)
@@ -133,7 +133,7 @@ export default function Dashboard() {
 
   // Part B
   const [bCapexUSD, setBCapexUSD] = useState<number>(22_000_000)
-  const [bEquityPct, setBEquityPct] = useState<number>(0)
+  const [bEquityPct, setBEquityPct] = useState<number>(0.30)
   const [bInterest, setBInterest] = useState<number>(0.12)
   const [bTenor, setBTenor] = useState<number>(10)
   const [bGrace, setBGrace] = useState<number>(0)
@@ -192,7 +192,7 @@ export default function Dashboard() {
   const wasteDay = 47_000
   const wasteYear = wasteDay * 365
   const [cCapexUSD, setCCapexUSD] = useState<number>(54_444_444)
-  const [cEquityPct, setCEquityPct] = useState<number>(0)
+  const [cEquityPct, setCEquityPct] = useState<number>(0.30)
   const [cInterest, setCInterest] = useState<number>(0.12)
   const [cTenor, setCTenor] = useState<number>(10)
   const [cGrace, setCGrace] = useState<number>(0)
@@ -275,9 +275,9 @@ export default function Dashboard() {
   const resetAll = () => {
     setCurrency('USD'); setFxUSD2MXN(18); setDiscountRate(0.10); setTaxRate(0.25);
     setOccupiedRooms(25000); setRoomRateUSD(5.7); setSplitA(0.55); setInflation(0.04);
-    setACapexUSD(18_000_000); setAEquityPct(0); setAInterest(0.12); setATenor(10); setAGrace(0); setABuildYears(0); setADepYears(10); setAOpexUSD(1_500_000);
-    setBCapexUSD(22_000_000); setBEquityPct(0); setBInterest(0.12); setBTenor(10); setBGrace(0); setBBuildYears(0); setBDepYears(10); setBOpexUSD(1_800_000); setBPowerMW(6); setBTariffUSDkWh(0.12);
-    setCCapexUSD(54_444_444); setCEquityPct(0); setCInterest(0.12); setCTenor(10); setCGrace(0); setCBuildYears(0); setCDepYears(15); setCOpexUSD(3_333_333); setCTariffUSDm3(0.80); setCTariffCurUSDm3(0.083);
+    setACapexUSD(18_000_000); setAEquityPct(0.30); setAInterest(0.12); setATenor(10); setAGrace(0); setABuildYears(0); setADepYears(10); setAOpexUSD(1_500_000);
+    setBCapexUSD(22_000_000); setBEquityPct(0.30); setBInterest(0.12); setBTenor(10); setBGrace(0); setBBuildYears(0); setBDepYears(10); setBOpexUSD(1_800_000); setBPowerMW(6); setBTariffUSDkWh(0.12);
+    setCCapexUSD(54_444_444); setCEquityPct(0.30); setCInterest(0.12); setCTenor(10); setCGrace(0); setCBuildYears(0); setCDepYears(15); setCOpexUSD(3_333_333); setCTariffUSDm3(0.80); setCTariffCurUSDm3(0.083);
   }
 
   // Datasets (unchanged shape; charts show thousands via prop)
@@ -456,4 +456,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
