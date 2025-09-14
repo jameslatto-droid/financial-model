@@ -37,7 +37,6 @@ function ChartShell({ children, label }:{children:React.ReactNode; label?:string
 }
 
 export function BurnChart({ data, label = 'Burn & Cash Balances', money, thousands }: Props) {
-  console.log("[BurnChart] data sample:", props?.data?.slice?.(0,3));
   const yfmt = fmt(money, thousands)
   return (
     <ChartShell label={label}>
@@ -59,7 +58,6 @@ export function BurnChart({ data, label = 'Burn & Cash Balances', money, thousan
 }
 
 export function RevNetChart({ data, label = 'Revenues & Net (after debt)', money, thousands }: Props) {
-  console.log("[RevNetChart] data sample:", props?.data?.slice?.(0,3));
   const yfmt = fmt(money, thousands)
   return (
     <ChartShell label={label}>
@@ -80,7 +78,6 @@ export function RevNetChart({ data, label = 'Revenues & Net (after debt)', money
 }
 
 export function CashFlowChart({ data, label = 'Cash Flows (Ops, Invest, Finance)', money, thousands }: Props) {
-  console.log("[CashFlowChart] data sample:", props?.data?.slice?.(0,3));
   const yfmt = fmt(money, thousands)
   return (
     <ChartShell label={label}>
@@ -104,7 +101,6 @@ export function CashFlowChart({ data, label = 'Cash Flows (Ops, Invest, Finance)
 }
 
 export function ExpenseChart({ data, label = 'Expenses by Category (OPEX escalated)', money, thousands }: Props) {
-  console.log("[ExpenseChart] data sample:", props?.data?.slice?.(0,3));
   const yfmt = fmt(money, thousands)
   return (
     <ChartShell label={label}>
