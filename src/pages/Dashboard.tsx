@@ -56,6 +56,17 @@ function buildDebtScheduleGrace(principal:number, rate:number, tenorYears:number
 
 export default function Dashboard() {
   const [view, setView] = useState<View>('main')
+  // Auto-apply saved defaults once on mount
+  const appliedOnce = useRef(false);
+  useEffect(() => {
+    if (appliedOnce.current) return;
+    const d = getDefaults?.();
+    if (d && Object.keys(d).length) {
+      applySavedDefaults();
+    }
+    appliedOnce.current = true;
+  }, []);
+
 
   // Currency + FX
   const [currency, setCurrency] = useState<Currency>('USD')
