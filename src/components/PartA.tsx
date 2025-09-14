@@ -32,6 +32,22 @@ export default function PartA({
   A: PartAComputed
 }) {
     const [collectionCapacity, setCollectionCapacity] = useState<number>(600);
+  // Part A capacity → CAPEX & OPEX mapping (USD; OPEX is annual)
+  const capacityConfigA: Record<number, { capex: number; opex: number }> = {
+    200: { capex: 13438102, opex: 3345000 },
+    400: { capex: 22654304, opex: 5575000 },
+    600: { capex: 31870506, opex: 7805000 },
+  };
+  
+  // Safely apply Part A CAPEX/OPEX based on selected capacity
+  // Uses whatever setters exist in this component (S?.setACapexUSD, setACapexUSD, etc.)
+  function applyCapacityA(cap: number) {
+    const cfg = capacityConfigA[cap];
+    if (!cfg) return;
+    /* Try common setter names (optional chaining means no crash if missing) */
+    (S?.setACapexUSD ?? (typeof setACapexUSD !== "undefined" ? setACapexUSD : undefined))?.(cfg.capex);
+    (S?.setAOpexUSD  ?? (typeof setAOpexUSD  !== "undefined" ? setAOpexUSD  : undefined))?.(cfg.opex);
+  }
 
   return (
     <section className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 shadow-lg">
@@ -47,9 +63,9 @@ export default function PartA({
     </div>
     <div className="mt-2 flex items-center gap-2">
       <span className="text-sm text-slate-300">Collection capacity:</span>
-      <button onClick={() => setCollectionCapacity(200)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
-      <button onClick={() => setCollectionCapacity(400)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 400 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>400 tpd</button>
-      <button onClick={() => setCollectionCapacity(600)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 600 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>600 tpd</button>
+      <button onClick={() => { setCollectionCapacity(200); applyCapacityA(200); }} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
+      <button onClick={() => { setCollectionCapacity(400); applyCapacityA(400); }} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 400 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>400 tpd</button>
+      <button onClick={() => { setCollectionCapacity(600); applyCapacityA(600); }} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 600 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>600 tpd</button>
       <span className="ml-3 text-xs text-slate-400">Selected: {collectionCapacity} tpd</span>
     </div>
   </div>
