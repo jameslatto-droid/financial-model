@@ -44,14 +44,24 @@ export default function PartA({
         <span className="ml-3 text-xs text-slate-400">Selected: {collectionCapacity} tpd</span>
       </div>
 
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="font-semibold">
-          Part A – Sargassum <span className="text-xs text-slate-400">(Revenue: $/room/day × occupied rooms × 365 × splitA)</span>
-        </h2>
-        <button onClick={onViewCharts} className="text-xs border border-slate-700 hover:bg-slate-800 rounded-lg px-3 py-1">
-          View cash flow chart →
-        </button>
-      </div>
+  <div className="mb-3">
+    <div className="flex items-center justify-between">
+      <h2 className="font-semibold">
+        Part A – Sargassum <span className="text-xs text-slate-400">(Revenue: $/room/day × occupied rooms × 365 × splitA)</span>
+      </h2>
+      <button onClick={onViewCharts} className="text-xs border border-slate-700 hover:bg-slate-800 rounded-lg px-3 py-1">
+        View cash flow chart →
+      </button>
+    </div>
+    {/* Sargassum Collection Capacity Selector */}
+    <div className="mt-2 flex items-center gap-2">
+      <span className="text-sm text-slate-300">Collection capacity:</span>
+      <button onClick={() => setCollectionCapacity(200)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
+      <button onClick={() => setCollectionCapacity(400)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 400 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>400 tpd</button>
+      <button onClick={() => setCollectionCapacity(600)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 600 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>600 tpd</button>
+      <span className="ml-3 text-xs text-slate-400">Selected: {collectionCapacity} tpd</span>
+    </div>
+  </div>
 
       <div className="grid md:grid-cols-3 gap-4">
         <div className="space-y-2">
