@@ -1,6 +1,6 @@
 
 import React, { useMemo, useState } from 'react'
-import logo from "../assets/cisec-logo.png";
+
 import KPI from '../components/KPI'
 import { fmt2 } from '../utils/format'
 import { irr, npv, paybackYears } from '../utils/finance'
@@ -15,7 +15,10 @@ import { downloadCSV } from '../utils/csv'
 
 import DefaultsPage from './Defaults'
 
+import logo from "../assets/cisec-logo.png";
+
 import { getDefaults, saveDefaults } from '../utils/defaults'
+
 type View = 'main' | 'chartA' | 'chartB' | 'chartC' | 'chartAll' | 'defaults'
 
 type Currency = 'USD' | 'MXN'
