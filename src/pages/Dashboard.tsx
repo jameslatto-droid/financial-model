@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import KPI from '../components/KPI'
 import { fmt2 } from '../utils/format'
@@ -73,6 +73,25 @@ export default function Dashboard() {
 
   // Simple tax settings
   const [taxRate, setTaxRate] = useState<number>(0.25) // 25% default
+
+  // Load saved defaults on mount
+
+  useEffect(() => {
+
+    const defaults = getDefaults();
+
+    if (defaults) {
+
+      if (defaults.currency) setCurrency(defaults.currency);
+
+      if (typeof defaults.discountRate === "number") setDiscountRate(defaults.discountRate);
+
+      if (typeof defaults.taxRate === "number") setTaxRate(defaults.taxRate);
+
+    }
+
+  }, []);
+
   const pct = (x: number) => (isNaN(x) ? '—' : `${fmt2(x * 100)}%`)
 
   // Common inputs (A+B)
@@ -374,6 +393,14 @@ if (view === 'defaults') {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-900 to-slate-950 text-slate-100 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
+        {/* Dashboard Title / Logo */}
+<section id="dashboard-title" className="mb-4">
+  <div className="flex items-center gap-4">
+    <img src={logo} alt="CISEC logo" className="h-12 w-auto" />
+    <h1 className="text-2xl font-bold text-white">Cancún CISEC</h1>
+  </div>
+</section>
+
 
         <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
           <div>
