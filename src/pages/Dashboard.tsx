@@ -1,5 +1,5 @@
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useEffect, useMemo, useState } from 'react'
 
 import KPI from '../components/KPI'
 import { fmt2 } from '../utils/format'
@@ -73,6 +73,25 @@ export default function Dashboard() {
 
   // Simple tax settings
   const [taxRate, setTaxRate] = useState<number>(0.25) // 25% default
+
+  // Load saved defaults on mount
+
+  useEffect(() => {
+
+    const defaults = getDefaults();
+
+    if (defaults) {
+
+      if (defaults.currency) setCurrency(defaults.currency);
+
+      if (typeof defaults.discountRate === "number") setDiscountRate(defaults.discountRate);
+
+      if (typeof defaults.taxRate === "number") setTaxRate(defaults.taxRate);
+
+    }
+
+  }, []);
+
 
   // Load saved defaults on mount
 
