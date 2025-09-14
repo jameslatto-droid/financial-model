@@ -30,18 +30,21 @@ type Actions = {
 
 
 - const initial: ModelState = {
-+ const initial: ModelState & DashboardCompat = {
+const initial: ModelState & DashboardCompat = {
   common: { projectName: 'Sanitation Tariff Dashboard', buildYears: 2, opsYears: 30, inflationPct: 3, discountRatePct: 12, currency: 'USD', usdToMxn: 17.0, startYear: new Date().getFullYear() },
   revenue: { trustFundUSDPerYear: 42_000_000, tariffUSDPerM3: 0.50, daysPerYear: 365 },
-  partA:   { option: 'HYBRID', includeWashing: false, capexUSD: 0, opexUSDPerYear: 0 },
-  partB:   { mode: 'AD_BASE', throughputTpd: 600, capexUSD: 0, opexUSDPerYear: 0 },
-  partC:   { scenario: 'C1_3_SITES', flowM3PerDay: 60_000, tech: 'SBR', capexUSD: 0, opexUSDPerYear: 0, sendSludgeToPartB: true },
 
-  // NEW (neutral placeholders; set real defaults later)
-  occupiedRoomsPerDay: 0,
-  occupiedRooms: 0,
-  usdPerRoomPerDay: 0,
-  taxRate: 0,
+  // Requested defaults
+  partA: { option: 'HYBRID', includeWashing: false, capexUSD: 32_000_000, opexUSDPerYear: 12_000_000 },
+  partB: { mode: 'AD_BASE', throughputTpd: 600, capexUSD: 30_000_000, opexUSDPerYear: 9_000_000 },
+
+  partC: { scenario: 'C1_3_SITES', flowM3PerDay: 60_000, tech: 'SBR', capexUSD: 0, opexUSDPerYear: 0, sendSludgeToPartB: true },
+
+  // Dashboard fields
+  occupiedRoomsPerDay: 37_500,
+  occupiedRooms: 37_500,   // kept in sync by setOccupiedRoomsPerDay
+  usdPerRoomPerDay: 1.5,
+  taxRate: 0.16,           // 16%
 }
 
 - export const useModel = create<ModelState & Actions>()(
