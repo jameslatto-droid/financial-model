@@ -1,3 +1,5 @@
+
+import { clampDomain, moneyk as moneykHelper } from "./helpers/chartHelpers";
 // src/components/charts/PartCharts.tsx
 import React from 'react'
 import {
@@ -42,13 +44,13 @@ export function BurnChart({ data, label = 'Burn & Cash Balances', money, thousan
         <ComposedChart data={data} stackOffset="sign" margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
-          <YAxis tickFormatter={yfmt} />
           <Tooltip formatter={(v)=>yfmt(v)} />
           <Legend />
           <Bar dataKey="OPEX" stackId="a" />
           <Bar dataKey="DebtService" stackId="a" />
           <Line dataKey="CFADS" dot={false} />
-        </ComposedChart>
+          <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
+</ComposedChart>
       </ResponsiveContainer>
     </ChartShell>
   )
@@ -62,11 +64,12 @@ export function RevNetChart({ data, label = 'Revenues & Net (after debt)', money
         <ComposedChart data={data} margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
-          <YAxis tickFormatter={yfmt} />
+          <YAxis tickFormatter={moneykHelper} domain={["dataMin","dataMax"]} />
           <Tooltip formatter={(v)=>yfmt(v)} />
           <Legend />
           <Bar dataKey="Revenue" />
           <Line dataKey="NetAfterDebt" dot={false} />
+  <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartShell>
@@ -81,13 +84,15 @@ export function CashFlowChart({ data, label = 'Cash Flows (Ops, Invest, Finance)
         <ComposedChart data={data} margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
-          <YAxis tickFormatter={yfmt} />
+          <YAxis tickFormatter={moneykHelper} domain={["dataMin","dataMax"]} />
           <Tooltip formatter={(v)=>yfmt(v)} />
           <Legend />
           <Bar dataKey="Operating" />
           <Bar dataKey="Investing" />
           <Bar dataKey="Financing" />
           <Line dataKey="Net" dot={false} />
+  <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
+  <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartShell>
@@ -102,11 +107,13 @@ export function ExpenseChart({ data, label = 'Expenses by Category (OPEX escalat
         <ComposedChart data={data} stackOffset="sign" margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
-          <YAxis tickFormatter={yfmt} />
+          <YAxis tickFormatter={moneykHelper} domain={["dataMin","dataMax"]} />
           <Tooltip formatter={(v)=>yfmt(v)} />
           <Legend />
           <Bar dataKey="OPEX" />
           <Bar dataKey="DebtService" />
+  <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
+  <ReferenceLine y={0} stroke="#6b7280" strokeDasharray="3 3" />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartShell>
