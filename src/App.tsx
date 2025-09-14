@@ -1,3 +1,4 @@
+import Header from "./components/Header";
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
@@ -29,6 +30,9 @@ export default function App() {
       <header className="sticky top-0 z-10 backdrop-blur border-b border-neutral-200/60 dark:border-neutral-800">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-3">
           <div className="font-semibold">Sanitation Tariff Dashboard</div>
+        {/* Always visible header */}
+        <Header />
+
           <nav className="flex gap-2 text-sm">
             <Link to="/dashboard" className={linkCls(pathname.startsWith('/dashboard'))}>Dashboard</Link>
             <Link to="/charts" className={linkCls(pathname === '/' || pathname.startsWith('/charts'))}>Charts</Link>

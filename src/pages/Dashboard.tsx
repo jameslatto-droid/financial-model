@@ -375,7 +375,6 @@ if (view === 'defaults') {
 
         <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
           <div>
-            <h1 className="text-xl font-semibold tracking-tight"><div className="flex items-center gap-3"><img src={logo} alt="CISEC Logo" className="h-12 w-auto" /><span className="text-2xl font-bold text-white">Cancún CISEC</span></div></h1>
             <p className="text-slate-400 text-sm"></p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
