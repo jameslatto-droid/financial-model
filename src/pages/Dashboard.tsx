@@ -515,7 +515,7 @@ if (view === 'defaults') {
               <div className="text-xs text-slate-400">A receives {(splitA*100).toFixed(0)}% • B receives {((1-splitA)*100).toFixed(0)}%</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+              <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
@@ -579,42 +579,42 @@ Changing interest or tax will not change this metric; those affect Equity IRR." 
             <button onClick={()=>setView('chartAll')} className="text-xs border border-slate-700 hover:bg-slate-800 rounded-lg px-3 py-1">View combined chart →</button>
           </div>
           <div className="grid md:grid-cols-4 gap-3">
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title={`Total CAPEX (${currency})`} value={money(aCapexUSD + bCapexUSD + cCapexUSD)} help="Sum of A+B+C capital expenditures." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title={`Total CFADS before debt (sum, ${currency})`} value={money(a.cfadsBeforeDebt.reduce((p,c)=>p+c,0)+b.cfadsBeforeDebt.reduce((p,c)=>p+c,0)+c.cfadsBeforeDebt_tgt.reduce((p,c)=>p+c,0))} help="Aggregate CFADS before any debt service." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title="IRR (project)" value={pct((isNaN(irr([- (aCapexUSD+bCapexUSD+cCapexUSD), ...DS_ALL.cashFlowData.slice(1).map(r=>Number(r.Operating))]))?Number.NaN:irr([- (aCapexUSD+bCapexUSD+cCapexUSD), ...DS_ALL.cashFlowData.slice(1).map(r=>Number(r.Operating))])))} help="IRR on project cash flows before financing (unlevered)." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title="IRR (equity, pre-tax)" value={pct((a.equityIRR + b.equityIRR + c.equityIRR)/3)} help="Simple average of per-part leveraged equity IRRs before tax." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title="IRR (equity, post-tax)" value={pct((a.equityIRRPostTax + b.equityIRRPostTax + c.equityIRRPostTax)/3)} help="Simple average of per-part leveraged equity IRRs after tax and depreciation." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title="ROI (unlevered, over horizon)" value={pct(((a.cfadsBeforeDebt.reduce((p,c)=>p+c,0)+b.cfadsBeforeDebt.reduce((p,c)=>p+c,0)+c.cfadsBeforeDebt_tgt.reduce((p,c)=>p+c,0)) - (aCapexUSD+bCapexUSD+cCapexUSD)) / (aCapexUSD+bCapexUSD+cCapexUSD))} help="(Sum of unlevered CFADS − CAPEX) ÷ CAPEX." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
 Changing interest or tax will not change this metric; those affect Equity IRR." title={`Project NPV @ ${(discountRate*100).toFixed(1)}% (${currency})`} value={money(npv(discountRate, [-(aCapexUSD+bCapexUSD+cCapexUSD), ...DS_ALL.cashFlowData.slice(1).map(r=>Number(r.Operating))]))} help="NPV of unlevered project cash flows at the chosen discount rate." />
-            <KPI info="NPV is the discounted sum of unlevered CFADS (before financing) minus total CAPEX at the chosen discount rate." info="Equity IRR uses leveraged, after-tax equity cash flows:
+            <KPI info="Equity IRR uses leveraged, after-tax equity cash flows:
 Equity injection as outflow, then CF after debt service and tax.
 Changes to interest and tax directly impact this metric." info="Project IRR is computed on unlevered cash flows:
 CFADS-before-debt (no interest, no tax) and total CAPEX.
