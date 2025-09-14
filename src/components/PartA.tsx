@@ -20,6 +20,8 @@ type PartAState = {
   aOpexUSD: number;  setAOpexUSD: (n: number) => void
   aInterest: number; setAInterest: (n: number) => void
   aTenor: number;    setATenor: (n: number) => void
+  bPowerMW?: number;
+  setBPowerMW?: (n: number) => void
 }
 
 export default function PartA({
@@ -46,7 +48,7 @@ export default function PartA({
     if (!cfg) return;
     (S?.setACapexUSD ?? (typeof setACapexUSD !== "undefined" ? setACapexUSD : undefined))?.(cfg.capex);
     (S?.setAOpexUSD  ?? (typeof setAOpexUSD  !== "undefined" ? setAOpexUSD  : undefined))?.(cfg.opex);
-    (S?.setBPowerMW  ?? (typeof setBPowerMW !== "undefined" ? setBPowerMW : undefined))?.(cfg.power);
+    S.setBPowerMW?.(cfg.power);
   }
 
   return (

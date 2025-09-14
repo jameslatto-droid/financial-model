@@ -1,5 +1,5 @@
 
-import React, { useEffect, useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 
 import KPI from '../components/KPI'
 import { fmt2 } from '../utils/format'
@@ -554,7 +554,7 @@ if (view === 'defaults') {
         {/* Parts display remain unchanged */}
         <PartA
           money={money} currency={currency} onViewCharts={()=>setView('chartA')}
-          S={{ aCapexUSD, setACapexUSD, aEquityPct, setAEquityPct, aOpexUSD, setAOpexUSD, aInterest, setAInterest, aTenor, setATenor }}
+          S={{ aCapexUSD, setACapexUSD, aEquityPct, setAEquityPct, aOpexUSD, setAOpexUSD, aInterest, setAInterest, aTenor, setATenor, bPowerMW, setBPowerMW }}
           A={a}
         />
         <PartB
