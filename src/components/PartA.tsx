@@ -31,8 +31,19 @@ export default function PartA({
   S: PartAState
   A: PartAComputed
 }) {
+    const [collectionCapacity, setCollectionCapacity] = useState<number>(600);
+
   return (
     <section className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 shadow-lg">
+      {/* Sargassum Collection Capacity */}
+      <div className="mb-4 flex items-center gap-2">
+        <span className="text-sm text-slate-300">Collection capacity:</span>
+        <button onClick={() => setCollectionCapacity(200)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
+        <button onClick={() => setCollectionCapacity(400)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 400 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>400 tpd</button>
+        <button onClick={() => setCollectionCapacity(600)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 600 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>600 tpd</button>
+        <span className="ml-3 text-xs text-slate-400">Selected: {collectionCapacity} tpd</span>
+      </div>
+
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-semibold">
           Part A – Sargassum <span className="text-xs text-slate-400">(Revenue: $/room/day × occupied rooms × 365 × splitA)</span>
