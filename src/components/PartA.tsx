@@ -53,14 +53,6 @@ export default function PartA({
         View cash flow chart →
       </button>
     </div>
-    {/* Sargassum Collection Capacity Selector */}
-    <div className="mt-2 flex items-center gap-2">
-      <span className="text-sm text-slate-300">Collection capacity:</span>
-      <button onClick={() => setCollectionCapacity(200)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
-      <button onClick={() => setCollectionCapacity(400)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 400 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>400 tpd</button>
-      <button onClick={() => setCollectionCapacity(600)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 600 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>600 tpd</button>
-      <span className="ml-3 text-xs text-slate-400">Selected: {collectionCapacity} tpd</span>
-    </div>
   </div>
 
       <div className="grid md:grid-cols-3 gap-4">
