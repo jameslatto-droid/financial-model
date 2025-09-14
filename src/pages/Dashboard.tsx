@@ -1,4 +1,3 @@
-import logo from "../assets/cisec-logo.png";
 ﻿// src/pages/Dashboard.tsx
 import React, { useMemo, useState } from 'react'
 import KPI from '../components/KPI'
