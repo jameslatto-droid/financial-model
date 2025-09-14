@@ -1,9 +1,10 @@
 // src/components/KPI.tsx
-import React from 'react'
+import React, { useState } from 'react'
 import { useState } from "react"
 import Help from './Help'
 
 export default function KPI(){
+  const [open, setOpen] = useState(false);
   title, value, help
 }: {
   title: string
