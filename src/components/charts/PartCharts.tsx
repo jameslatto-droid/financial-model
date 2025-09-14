@@ -44,6 +44,7 @@ export function BurnChart({ data, label = 'Burn & Cash Balances', money, thousan
         <ComposedChart data={data} stackOffset="sign" margin={{ top: 10, right: 10, bottom: 0, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
+          <YAxis tickFormatter={moneykHelper} domain={["dataMin","dataMax"]} />
           <Tooltip formatter={(v)=>yfmt(v)} />
           <Legend />
           <Bar dataKey="OPEX" stackId="a" />
