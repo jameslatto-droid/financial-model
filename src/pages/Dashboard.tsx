@@ -9,9 +9,15 @@ import PartA from '../components/PartA'
 import PartB from '../components/PartB'
 import PartC from '../components/PartC'
 import Help from '../components/Help'
+
 import { downloadCSV } from '../utils/csv'
 
-type View = 'main' | 'chartA' | 'chartB' | 'chartC' | 'chartAll'
+import DefaultsPage from './Defaults'
+
+import { getDefaults, saveDefaults } from '../utils/defaults'
+
+type View = 'main' | 'chartA' | 'chartB' | 'chartC' | 'chartAll' | 'defaults'
+
 type Currency = 'USD' | 'MXN'
 
 // New: debt schedule with optional grace (interest-only) years
@@ -81,7 +87,7 @@ export default function Dashboard() {
 
   // Part A
   const [aCapexUSD, setACapexUSD] = useState<number>(18_000_000)
-  const [aEquityPct, setAEquityPct] = useState<number>(0)
+  const [aEquityPct, setAEquityPct] = useState<number>(0.30)
   const [aInterest, setAInterest] = useState<number>(0.12)
   const [aTenor, setATenor] = useState<number>(10)
   const [aGrace, setAGrace] = useState<number>(0)
@@ -133,7 +139,7 @@ export default function Dashboard() {
 
   // Part B
   const [bCapexUSD, setBCapexUSD] = useState<number>(22_000_000)
-  const [bEquityPct, setBEquityPct] = useState<number>(0)
+  const [bEquityPct, setBEquityPct] = useState<number>(0.30)
   const [bInterest, setBInterest] = useState<number>(0.12)
   const [bTenor, setBTenor] = useState<number>(10)
   const [bGrace, setBGrace] = useState<number>(0)
@@ -187,12 +193,46 @@ export default function Dashboard() {
       buildYears: bBuildYears, graceYears: bGrace
     }
   }, [shared.allocB, bCapexUSD, bEquityPct, bInterest, bTenor, bGrace, bBuildYears, bDepYears, bOpexUSD, inflation, taxRate, bPowerMW, bTariffUSDkWh])
+// === Defaults integration ===
+// Load saved defaults into all state setters (one-click apply)
+function applySavedDefaults() {
+  const d = getDefaults()
+  setCurrency(d.currency); setFxUSD2MXN(d.fxUSD2MXN)
+  setDiscountRate(d.discountRate); setTaxRate(d.taxRate)
+  setOccupiedRooms(d.occupiedRooms); setRoomRateUSD(d.roomRateUSD)
+  setSplitA(d.splitA); setInflation(d.inflation)
+
+  setACapexUSD(d.aCapexUSD); setAEquityPct(d.aEquityPct); setAInterest(d.aInterest)
+  setATenor(d.aTenor); setAGrace(d.aGrace); setABuildYears(d.aBuildYears)
+  setADepYears(d.aDepYears); setAOpexUSD(d.aOpexUSD)
+
+  setBCapexUSD(d.bCapexUSD); setBEquityPct(d.bEquityPct); setBInterest(d.bInterest)
+  setBTenor(d.bTenor); setBGrace(d.bGrace); setBBuildYears(d.bBuildYears)
+  setBDepYears(d.bDepYears); setBOpexUSD(d.bOpexUSD)
+  setBPowerMW(d.bPowerMW); setBTariffUSDkWh(d.bTariffUSDkWh)
+
+  setCCapexUSD(d.cCapexUSD); setCEquityPct(d.cEquityPct); setCInterest(d.cInterest)
+  setCTenor(d.cTenor); setCGrace(d.cGrace); setCBuildYears(d.cBuildYears)
+  setCDepYears(d.cDepYears); setCOpexUSD(d.cOpexUSD)
+  setCTariffUSDm3(d.cTariffUSDm3); setCTariffCurUSDm3(d.cTariffCurUSDm3)
+}
+
+// Save current screen values as the new defaults
+function saveCurrentAsDefaults() {
+  saveDefaults({
+    currency, fxUSD2MXN, discountRate, taxRate,
+    occupiedRooms, roomRateUSD, splitA, inflation,
+    aCapexUSD, aEquityPct, aInterest, aTenor, aGrace, aBuildYears, aDepYears, aOpexUSD,
+    bCapexUSD, bEquityPct, bInterest, bTenor, bGrace, bBuildYears, bDepYears, bOpexUSD, bPowerMW, bTariffUSDkWh,
+    cCapexUSD, cEquityPct, cInterest, cTenor, cGrace, cBuildYears, cDepYears, cOpexUSD, cTariffUSDm3, cTariffCurUSDm3,
+  })
+}
 
   // Part C
   const wasteDay = 47_000
   const wasteYear = wasteDay * 365
   const [cCapexUSD, setCCapexUSD] = useState<number>(54_444_444)
-  const [cEquityPct, setCEquityPct] = useState<number>(0)
+  const [cEquityPct, setCEquityPct] = useState<number>(0.30)
   const [cInterest, setCInterest] = useState<number>(0.12)
   const [cTenor, setCTenor] = useState<number>(10)
   const [cGrace, setCGrace] = useState<number>(0)
@@ -275,9 +315,9 @@ export default function Dashboard() {
   const resetAll = () => {
     setCurrency('USD'); setFxUSD2MXN(18); setDiscountRate(0.10); setTaxRate(0.25);
     setOccupiedRooms(25000); setRoomRateUSD(5.7); setSplitA(0.55); setInflation(0.04);
-    setACapexUSD(18_000_000); setAEquityPct(0); setAInterest(0.12); setATenor(10); setAGrace(0); setABuildYears(0); setADepYears(10); setAOpexUSD(1_500_000);
-    setBCapexUSD(22_000_000); setBEquityPct(0); setBInterest(0.12); setBTenor(10); setBGrace(0); setBBuildYears(0); setBDepYears(10); setBOpexUSD(1_800_000); setBPowerMW(6); setBTariffUSDkWh(0.12);
-    setCCapexUSD(54_444_444); setCEquityPct(0); setCInterest(0.12); setCTenor(10); setCGrace(0); setCBuildYears(0); setCDepYears(15); setCOpexUSD(3_333_333); setCTariffUSDm3(0.80); setCTariffCurUSDm3(0.083);
+    setACapexUSD(18_000_000); setAEquityPct(0.30); setAInterest(0.12); setATenor(10); setAGrace(0); setABuildYears(0); setADepYears(10); setAOpexUSD(1_500_000);
+    setBCapexUSD(22_000_000); setBEquityPct(0.30); setBInterest(0.12); setBTenor(10); setBGrace(0); setBBuildYears(0); setBDepYears(10); setBOpexUSD(1_800_000); setBPowerMW(6); setBTariffUSDkWh(0.12);
+    setCCapexUSD(54_444_444); setCEquityPct(0.30); setCInterest(0.12); setCTenor(10); setCGrace(0); setCBuildYears(0); setCDepYears(15); setCOpexUSD(3_333_333); setCTariffUSDm3(0.80); setCTariffCurUSDm3(0.083);
   }
 
   // Datasets (unchanged shape; charts show thousands via prop)
@@ -294,6 +334,10 @@ export default function Dashboard() {
     (y)=> y===0? (a.debtRows[0]?.remaining||0)+(b.debtRows[0]?.remaining||0)+(c.debtRows[0]?.remaining||0) : (a.debtRows[y-1]?.remaining||0)+(b.debtRows[y-1]?.remaining||0)+(c.debtRows[y-1]?.remaining||0)
   )
 
+  // Render Defaults page when selected
+if (view === 'defaults') {
+  return <DefaultsPage onBack={() => setView('main')} />
+}
   // CSV Export (same as before, omitted for brevity)
 
   if (view !== 'main') {
@@ -306,7 +350,11 @@ export default function Dashboard() {
         <ExpenseChart data={ds.expenseData} label="Expenses by Category (OPEX escalated)" money={money} thousands />
       </div>
     )
+
+
+
     return (
+      
       <div className="min-h-screen w-full bg-gradient-to-b from-slate-900 to-slate-950 text-slate-100 p-6">
         <div className="max-w-7xl mx-auto space-y-4">
           {back}
@@ -318,6 +366,7 @@ export default function Dashboard() {
       </div>
     )
   }
+
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-900 to-slate-950 text-slate-100 p-6">
@@ -356,6 +405,32 @@ export default function Dashboard() {
             </div>
 
             <button onClick={resetAll} className="text-xs border border-slate-700 hover:bg-slate-800 rounded-lg px-3 py-1">Reset all</button>
+            
+            <button
+  onClick={() => setView('defaults')}
+  className="text-xs border border-slate-700 hover:bg-slate-800 rounded-lg px-3 py-1"
+  title="Open the page to view and edit all default values"
+>
+  Edit defaults →
+</button>
+
+<button
+  onClick={applySavedDefaults}
+  className="text-xs border border-emerald-700 hover:bg-emerald-800 rounded-lg px-3 py-1"
+  title="Load saved defaults (from localStorage) into all inputs"
+>
+  Apply saved defaults
+</button>
+
+<button
+  onClick={saveCurrentAsDefaults}
+  className="text-xs border border-indigo-700 hover:bg-indigo-800 rounded-lg px-3 py-1"
+  title="Save current screen values as your new defaults"
+>
+  Save current as defaults
+</button>
+
+            
           </div>
         </header>
 
@@ -456,4 +531,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
