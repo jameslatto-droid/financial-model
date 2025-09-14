@@ -1,5 +1,6 @@
 // src/components/PartA.tsx
 import React from 'react'
+import { useState } from "react"
 import KPI from './KPI'
 
 type Currency = 'USD' | 'MXN'
