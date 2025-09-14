@@ -33,10 +33,10 @@ export default function PartA({
 }) {
     const [collectionCapacity, setCollectionCapacity] = useState<number>(600);
   // Part A capacity → CAPEX & OPEX mapping (USD; OPEX is annual)
-  const capacityConfigA: Record<number, { capex: number; opex: number }> = {
-    200: { capex: 13438102, opex: 3345000 },
-    400: { capex: 22654304, opex: 5575000 },
-    600: { capex: 31870506, opex: 7805000 },
+  const capacityConfigA: Record<number, { capex: number; opex: number; power: number }> = {
+    200: { capex: 13438102, opex: 3345000, power: 2.0 },
+    400: { capex: 22654304, opex: 5575000, power: 4.0 },
+    600: { capex: 31870506, opex: 7805000, power: 6.0 },
   };
   
   // Safely apply Part A CAPEX/OPEX based on selected capacity
@@ -44,9 +44,9 @@ export default function PartA({
   function applyCapacityA(cap: number) {
     const cfg = capacityConfigA[cap];
     if (!cfg) return;
-    /* Try common setter names (optional chaining means no crash if missing) */
     (S?.setACapexUSD ?? (typeof setACapexUSD !== "undefined" ? setACapexUSD : undefined))?.(cfg.capex);
     (S?.setAOpexUSD  ?? (typeof setAOpexUSD  !== "undefined" ? setAOpexUSD  : undefined))?.(cfg.opex);
+    (S?.setBPowerMW  ?? (typeof setBPowerMW !== "undefined" ? setBPowerMW : undefined))?.(cfg.power);
   }
 
   return (
