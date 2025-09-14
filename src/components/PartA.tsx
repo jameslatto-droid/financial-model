@@ -35,7 +35,6 @@ export default function PartA({
 
   return (
     <section className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 shadow-lg">
-      {/* Sargassum Collection Capacity */}
       <div className="mb-4 flex items-center gap-2">
         <span className="text-sm text-slate-300">Collection capacity:</span>
         <button onClick={() => setCollectionCapacity(200)} className={`px-3 py-1 text-xs rounded border border-slate-700 ${collectionCapacity === 200 ? "bg-blue-700 text-white" : "bg-slate-800 hover:bg-slate-700"}`}>200 tpd</button>
