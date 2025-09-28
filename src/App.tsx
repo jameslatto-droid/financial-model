@@ -1,6 +1,13 @@
-import Header from "./components/Header";
-import React from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { MantineProvider, createTheme } from '@mantine/core';
+import { ColorSchemeContext, type AppColorScheme } from './theme/colorScheme';
+import '@mantine/core/styles.css';
+
+const theme = createTheme({
+  primaryColor: 'blue',
+  fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+});
 
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
   constructor(props: any) { super(props); this.state = { hasError: false } }
@@ -11,8 +18,8 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
       return (
         <div className="p-6 space-y-3">
           <h2 className="h2">Something went wrong rendering this page.</h2>
-          <p className="text-sm text-neutral-500">Try going back to the charts or refreshing.</p>
-          <Link to="/charts" className="inline-block px-3 py-1.5 rounded-md border border-neutral-300/70 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800">Go to Charts</Link>
+          <p className="text-sm text-neutral-500">Try going back to the dashboard or refreshing.</p>
+          <Link to="/dashboard" className="inline-block px-3 py-1.5 rounded-md border border-neutral-300/70 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800">Go to Dashboard</Link>
         </div>
       )
     }
@@ -21,31 +28,38 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 }
 
 export default function App() {
-  const { pathname } = useLocation()
-  const linkCls = (active: boolean) =>
-    `px-3 py-1.5 rounded-md border border-neutral-300/70 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 ${active ? 'bg-neutral-100 dark:bg-neutral-800' : ''}`
+  const [colorScheme, setColorScheme] = useState<AppColorScheme>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('color-scheme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  const toggle = () => {
+    const next = colorScheme === 'light' ? 'dark' : 'light';
+    setColorScheme(next);
+    localStorage.setItem('color-scheme', next);
+  };
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-color-scheme', colorScheme);
+  }, [colorScheme]);
 
   return (
-    <div className="min-h-dvh flex flex-col">
-      <header className="sticky top-0 z-10 backdrop-blur border-b border-neutral-200/60 dark:border-neutral-800">
-        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-3">
-          <div className="font-semibold">Sanitation Tariff Dashboard</div>
-        {/* Always visible header */}
-        <Header />
-
-          <nav className="flex gap-2 text-sm">
-            <Link to="/dashboard" className={linkCls(pathname.startsWith('/dashboard'))}>Dashboard</Link>
-            <Link to="/charts" className={linkCls(pathname === '/' || pathname.startsWith('/charts'))}>Charts</Link>
-          </nav>
+    <ColorSchemeContext.Provider value={{ colorScheme, toggle }}>
+      <MantineProvider theme={theme} forceColorScheme={colorScheme}>
+        <div className="min-h-dvh flex flex-col" style={{ background: 'var(--app-bg)', color: 'var(--app-text)' }}>
+          <main className="flex-1">
+            <ErrorBoundary>
+              <React.Suspense fallback={<div className="p-6">Loading…</div>}>
+                <Outlet />
+              </React.Suspense>
+            </ErrorBoundary>
+          </main>
         </div>
-      </header>
-      <main className="flex-1 p-4 md:p-6">
-        <ErrorBoundary>
-          <React.Suspense fallback={<div className="p-6">Loading…</div>}>
-            <Outlet />
-          </React.Suspense>
-        </ErrorBoundary>
-      </main>
-    </div>
+      </MantineProvider>
+    </ColorSchemeContext.Provider>
   )
 }

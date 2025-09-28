@@ -1,8 +1,139 @@
+@import url("./styles/theme.css");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-html, body, #root { height: 100%; }
-body { margin: 0; }
+:root {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme variables (used by components and inline styles) */
+:root {
+  --app-bg: #f5f7ff;
+  --app-text: #1f2937;
+  --app-header-bg: #f8fafc;
+  --app-header-border: #e4e7ec;
+  --card-bg: #ffffff;
+  /* chart palette (use these in Recharts via CSS variables) */
+  --chart-blue: #2563eb;
+  --chart-sky: #60a5fa;
+  --chart-green: #22c55e;
+  --chart-orange: #f97316;
+  --chart-yellow: #fbbf24;
+  --chart-purple: #7c3aed;
+  --chart-red: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: #f5f7ff;
+  color: #1f2937;
+}
+
+/* quick dark mode overrides (tied to data-color-scheme attribute) */
+:root[data-color-scheme="dark"] body {
+  background-color: #0b1220;
+  color: #e6eef8;
+}
+
+:root[data-color-scheme="dark"] {
+  --app-bg: #071028;
+  --app-text: #e6eef8;
+  --app-header-bg: #071028;
+  --app-header-border: rgba(255,255,255,0.06);
+  --card-bg: #07182a;
+  /* dark variants for charts (slightly desaturated/lighter where needed) */
+  --chart-blue: #3b82f6;
+  --chart-sky: #60a5fa;
+  --chart-green: #22c55e;
+  --chart-orange: #fb923c;
+  --chart-yellow: #fbbf24;
+  --chart-purple: #8b5cf6;
+  --chart-red: #f87171;
+}
+
+:root[data-color-scheme="dark"] .mantine-AppShell-root {
+  background-color: #071028;
+}
+
+:root[data-color-scheme="dark"] .mantine-Text-root {
+  color: #e6eef8;
+}
+
+/* Dark mode fixes for ScenarioLab */
+:root[data-color-scheme="dark"] .mantine-Card-root {
+  background-color: var(--card-bg);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .mantine-Paper-root {
+  background-color: var(--card-bg);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .mantine-NumberInput-input,
+:root[data-color-scheme="dark"] .mantine-TextInput-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e6eef8;
+}
+
+:root[data-color-scheme="dark"] .mantine-Accordion-control {
+  background-color: transparent;
+  color: #e6eef8;
+}
+
+:root[data-color-scheme="dark"] .mantine-Accordion-panel {
+  background-color: transparent;
+}
+
+:root[data-color-scheme="dark"] .mantine-Accordion-item {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-color-scheme="dark"] .mantine-SegmentedControl-root {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-color-scheme="dark"] .mantine-SegmentedControl-control {
+  color: #e6eef8;
+}
+
+:root[data-color-scheme="dark"] .mantine-Button-root {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Legacy styles for existing dashboard */
+.panel {
+  @apply bg-[color:var(--card-bg)] rounded-2xl shadow-lg border border-neutral-200/60 dark:border-neutral-800 p-4 md:p-6;
+}
+.h1 { @apply text-2xl md:text-3xl font-semibold text-[color:var(--app-text)]; }
+.h2 { @apply text-xl md:text-2xl font-semibold text-[color:var(--app-text)]; }
+.label { @apply text-sm text-neutral-500 dark:text-neutral-400; }

@@ -3,7 +3,7 @@ import { clampDomain, moneyk as moneykHelper } from "./helpers/chartHelpers";
 // src/components/charts/PartCharts.tsx
 import React from 'react'
 import {
-  ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+  ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine
 } from 'recharts'
 
 type Row = { [k: string]: number | string }
